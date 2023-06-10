@@ -1,0 +1,30 @@
+<div class="container">
+  <% @entries.each do |e| %>
+    <% unless e.user == current_user %>
+      <%= e.user.name %> さんとのチャット
+    <% end %>
+  <% end %>
+  <hr>
+    <div class="chat">
+      <% if @messages.present? %>
+        <% @messages.each do |m| %>
+          <div class="chat-box">
+            <div class="chat-face">
+              <%= image_tag m.user.get_profile_image(100,100), class:"user-image" %>
+            </div>
+            <div class="mb-3"><%= m.content %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p>メッセージがありません。</p>
+      <% end %>
+    </div>
+    <div class="posts">
+      <%= form_for @message do |f| %>
+        <%= f.text_field :content, placeholder: "メッセージを入力して下さい" , size: 50, class:"form-text-field" %>
+          <%= f.hidden_field :room_id, value: @room.id %>
+            <%= f.submit "投稿",class: 'form-submit'%>
+      <% end %>
+    </div>
+</div>

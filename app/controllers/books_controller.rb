@@ -5,10 +5,11 @@ class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
     @book_comment = BookComment.new
+    current_user.view_counts.create(book_id: @book.id)
   end
 
   def index
-    # @books = Book.includes(:favorites).sort {|a,b| b.favorites.size <=> a.favorites.size
+    @books = Book.includes(:favorites).sort {|a,b| b.favorites.size <=> a.favorites.size}
     @book = Book.new
   end
 
