@@ -1,4 +1,5 @@
-  <div class = "table_width">
+  <div class = "mt-3">
+   <h4>投稿の前日比・前週比</h4> 
    <table class="table table-bordered">
     <thead>
      <tr>
@@ -9,15 +10,67 @@
     </thead>
     <tbody>
      <tr>
-       <td><%= @today_book.count %></td>
-       <td><%= @yesterday_book.count %></td>
+       <td><%= @today_books.count %></td>
+       <td><%= @yesterday_books.count %></td>
        <td>
-       <% if @yesterday_book.count == 0 %>
+       <% if @yesterday_books.count == 0 %>
         前日の投稿はありません
        <% else %>
-        <%= (@the_day_before * 100).round %>
+        <% @the_day_before_ratio =   @today_books.count / @yesterday_books.count.to_f  %>
+        <%= (@the_day_before_ratio * 100).round %>%
        <% end %>
       </td>
+     </tr>
+    </tbody>
+   </table>
+   <table class="table table-bordered">
+    <thead>
+     <tr>
+      <th>今週の投稿数</th>
+      <th>前週の投稿数</th>
+      <th>前週比</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+       <td><%= @this_week_books.count %></td>
+       <td><%= @last_week_books.count %></td>
+       <td>
+       <% if @last_week_books.count == 0 %>
+        前週の投稿はありません
+       <% else %>
+        <% @last_week_ratio =   @this_week_books.count / @last_week_books.count.to_f  %>
+        <%= (@last_week_ratio * 100).round %>%
+       <% end %>
+      </td>
+     </tr>
+    </tbody>
+   </table>
+  </div>
+
+  <div class = "mt-3">
+   <h4>7日間分の投稿数</h4> 
+   <table class="table table-bordered">
+    <thead>
+     <tr>
+      <th>6日前</th>
+      <th>5日前</th>
+      <th>4日前</th>
+      <th>3日前</th>
+      <th>2日前</th>
+      <th>1日前</th>
+      <th>今日</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+       <td><%= @books_6days_ago.count %></td>
+       <td><%= @books_5days_ago.count %></td>
+       <td><%= @books_4days_ago.count %></td>
+       <td><%= @books_3days_ago.count %></td>
+       <td><%= @books_2days_ago.count %></td>
+       <td><%= @yesterday_books.count %></td>
+       <td><%= @today_books.count %></td>
      </tr>
     </tbody>
    </table>
