@@ -3,9 +3,12 @@ class UsersController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update]
 
   def show
+    @book = Book.new
     @user = User.find(params[:id])
     @books = @user.books
-    @book = Book.new
+    @today_book = @books.created_today
+    @yesterday_book = @books.created_yesterday
+    @the_day_before =   @today_book.count / @yesterday_book.count
   end
 
   def index
